@@ -1,7 +1,7 @@
 import GhostContentAPI from "@tryghost/content-api";
 
 export const api = new GhostContentAPI({
-  url: "https://blog.zechman.design",
-  key: "d9ddbcdf5a217900a87c624e69",
+  url: process.env.GHOST_API_URL,
+  key: process.env.GHOST_CONTENT_API_KEY,
   version: "v5.0",
 });
