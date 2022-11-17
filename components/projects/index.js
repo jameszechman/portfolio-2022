@@ -1,5 +1,5 @@
 import { Box, Button, Divider, Flex, Heading } from "@chakra-ui/react";
-import { Link } from "next/link";
+import Link from "next/link";
 import React, { useState } from "react";
 import { ProjectsContext } from "./projectContext";
 import { ProjectFilters } from "./projectFilters";
@@ -38,7 +38,7 @@ export function Projects(props) {
           />
           {router.asPath === "/" && (
             <Flex justifyContent={"flex-end"}>
-              <Button as={Link} to='/tag/projects' colorScheme={"brand"}>
+              <Button as={Link} href='/tag/projects' colorScheme={"brand"}>
                 See More
               </Button>
             </Flex>

@@ -7,7 +7,6 @@ import { useRouter } from "next/router";
 
 const Pagination = ({ pageContext, page, setPage }) => {
   const router = useRouter();
-  console.log(page);
 
   return (
     <ButtonGroup

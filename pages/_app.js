@@ -3,7 +3,7 @@ import theme from "@styles/index";
 import Head from "next/head";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "../styles/globals.css";
-import Layout from "./_layout";
+import Layout from "../components/layout";
 
 const queryClient = new QueryClient();
 

@@ -12,7 +12,8 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 import { MetaData } from "@components/meta";
-import { url } from "lib";
+import { ssrfetch } from "lib";
+import { api } from "./api/_api";
 
 export default function Page({ settings }) {
   const color = useColorModeValue("gray.100", "gray.800");
@@ -66,8 +67,7 @@ export default function Page({ settings }) {
 }
 
 export async function getStaticProps() {
-  const retrieveSettings = await fetch(url + "/api/settings");
-  const settings = await retrieveSettings.json();
+  const settings = await api.settings.browse();
   return {
     props: { settings }, // will be passed to the page component as props
   };

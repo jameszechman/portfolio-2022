@@ -1,10 +1,9 @@
 // import { MetaData } from "@components/meta";
-import { url } from "lib";
 import { Box, Container, Image } from "@chakra-ui/react";
-
-import Head from "next/head";
 import { GhostWrapper } from "@components/ghostWrapper";
 import { MetaData } from "@components/meta";
+import Head from "next/head";
+import { api } from "pages/api/_api";
 
 /**
  * Tag page (/tag/:slug)
@@ -51,10 +50,11 @@ export default function Page({ post, settings }) {
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
-  const retrievePost = await fetch(url + "/api/posts/" + slug);
-  const post = await retrievePost.json();
-  const retrieveSettings = await fetch(url + "/api/settings");
-  const settings = await retrieveSettings.json();
+  const post = await api.posts.read(
+    { slug: slug },
+    { include: ["tags", "authors"] }
+  );
+  const settings = await api.settings.browse();
   return {
     props: { post, settings }, // will be passed to the page component as props
     revalidate: 10,
@@ -63,13 +63,12 @@ export async function getStaticProps(context) {
 
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
-  const res = await fetch(url + "/api/posts?limit=all");
-  const posts = await res.json();
+  const posts = await api.posts.browse({ limit: "all", filter: "tag:Blog" });
 
   // Get the paths we want to prerender based on posts
   // In production environments, prerender all pages
   // (slower builds, but faster initial page load)
-  const paths = posts.data.map((post) => ({
+  const paths = posts.map((post) => ({
     params: { slug: post.slug },
   }));
 

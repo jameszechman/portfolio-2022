@@ -164,12 +164,12 @@ export function GhostWrapper(props) {
                 >
                   {node?.children.map((heading) => {
                     if (heading.children) {
-                      return heading.children.map((e) => {
+                      return heading.children.map((e, idx) => {
                         if (e.parent) {
                           return (
                             <Href
                               color='primary'
-                              key={e.parent.name}
+                              key={idx}
                               as={e.parent.name}
                               {...e.parent.attribs}
                             >

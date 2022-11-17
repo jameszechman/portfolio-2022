@@ -3,7 +3,8 @@ import { BlogCard } from "@components/blog/blogCard";
 import { MetaData } from "@components/meta";
 import Pagination from "@components/pagination";
 import { Projects } from "@components/projects";
-import { url } from "lib";
+import { ssrfetch, url } from "lib";
+import { api } from "pages/api/_api";
 import { useState } from "react";
 import { useQuery } from "react-query";
 
@@ -73,28 +74,27 @@ export default function Page({ tag, posts, settings }) {
 
 export async function getStaticProps(context) {
   const { slug } = context.params;
-  const retrieveTag = await fetch(url + "/api/tags/" + slug);
-  const tag = await retrieveTag.json();
-  /** Retireve Base Posts based on Tag */
-  const retrievePosts = await fetch(url + "/api/posts?filter=" + tag.name);
-  const posts = await retrievePosts.json();
-  const retrieveSettings = await fetch(url + "/api/settings");
-  const settings = await retrieveSettings.json();
+  const tag = await api.tags.read({ slug: slug });
+  /** Retrieve Base Posts based on Tag */
+  const posts = await api.posts.browse({
+    filter: "tag:" + slug,
+    include: ["tags", "authors"],
+  });
+  const settings = await api.settings.browse();
   return {
-    props: { tag, posts, settings }, // will be passed to the page component as props
+    props: { tag, posts: { data: posts, meta: posts.meta }, settings }, // will be passed to the page component as props
     revalidate: 10,
   };
 }
 
 export async function getStaticPaths() {
   // Call an external API endpoint to get posts
-  const res = await fetch(url + "/api/tags");
-  const posts = await res.json();
+  const posts = await api.tags.browse({ include: ["authors"] });
 
   // Get the paths we want to prerender based on posts
   // In production environments, prerender all pages
   // (slower builds, but faster initial page load)
-  const paths = posts.data.map((post) => ({
+  const paths = posts.map((post) => ({
     params: { slug: post.slug },
   }));
 
