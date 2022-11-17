@@ -47,7 +47,7 @@ export default function Page({ settings }) {
             <FormControl mb={1} isRequired>
               <FormLabel htmlFor='email'>Email address.</FormLabel>
               <Input id='email' type='email' />
-              <FormHelperText>We'll never share your email.</FormHelperText>
+              <FormHelperText>{"We'll never share your email."}</FormHelperText>
             </FormControl>
           </SimpleGrid>
           <FormControl mb={5} isRequired>
