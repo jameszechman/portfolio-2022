@@ -1,21 +1,33 @@
-import React from "react";
 import {
   Box,
-  Image,
+  Flex,
   Heading,
+  Image,
+  Link,
   Text,
   useColorModeValue,
-  Link,
-  Flex,
-  Stack,
 } from "@chakra-ui/react";
-import NextLink from "next/link";
 import { readingTime as readingTimeHelper } from "@tryghost/helpers";
+import NextLink from "next/link";
+
+const gradients = [
+  "green.200, pink.500",
+  "#7928CA, #FF0080",
+  "gray.300, yellow.400, pink.200",
+  "#00bd56, #f9fd50",
+  "#26baee, #9fe8fa",
+  "#8f71ff, #8bffff",
+  "#c7004c, #ffaaaa",
+  "#3d6cb9, #00fff0",
+  "#ff0592, #ffbee3",
+];
 
 export function BlogCard(props) {
   const url = `/posts/${props.slug}/`;
   const readingTime = readingTimeHelper(props);
   const color = useColorModeValue("gray.100", "gray.800");
+  const r =
+    gradients[Math.floor(Math.random() * (gradients.length - 1 - 0 + 1))];
   return (
     <Flex
       id={props.id}
@@ -30,7 +42,7 @@ export function BlogCard(props) {
       direction='column'
       justifyContent={"space-between"}
     >
-      {props.feature_image && (
+      {props.feature_image ? (
         <NextLink href={url}>
           <Image
             // as={GatsbyImage}
@@ -41,11 +53,15 @@ export function BlogCard(props) {
             alt=''
           />
         </NextLink>
+      ) : (
+        <NextLink href={url}>
+          <Box w='100%' h={300} bgGradient={`linear(to-r, ${r})`} />
+        </NextLink>
       )}
 
       <Box padding={3}>
         <Heading as='h2' size='md' marginBottom={1}>
-          {props.title}
+          <NextLink href={url}>{props.title}</NextLink>
         </Heading>
         <Text noOfLines={3}>{props.excerpt}</Text>
       </Box>

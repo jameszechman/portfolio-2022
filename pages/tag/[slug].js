@@ -1,9 +1,9 @@
-import { Box, Heading, SimpleGrid, Text } from "@chakra-ui/react";
+import { Box, Heading, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
 import { BlogCard } from "@components/blog/blogCard";
 import { MetaData } from "@components/meta";
 import Pagination from "@components/pagination";
 import { Projects } from "@components/projects";
-import { ssrfetch, url } from "lib";
+import { url } from "lib";
 import { api } from "pages/api/_api";
 import { useState } from "react";
 import { useQuery } from "react-query";
@@ -16,7 +16,7 @@ import { useQuery } from "react-query";
  */
 export default function Page({ tag, posts, settings }) {
   const [page, setPage] = useState(posts.meta.pagination.page);
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     [tag.name, page],
     () =>
       fetch(url + "/api/posts?filter=" + tag.name + "&page=" + page).then(
@@ -40,6 +40,7 @@ export default function Page({ tag, posts, settings }) {
       return "projects";
     return "blog";
   };
+
   return (
     <>
       <MetaData data={tag} settings={settings} type='series' />
@@ -58,9 +59,17 @@ export default function Page({ tag, posts, settings }) {
           columns={type(tag.name) === "projects" ? [2, 2, 3] : [1, 1, 3]}
           gap={5}
         >
-          {grid?.data.map((node) => {
-            return <BlogCard key={node.id} {...node} />;
-          })}
+          {!isLoading ? (
+            grid?.data.map((node) => {
+              return <BlogCard key={node.id} {...node} />;
+            })
+          ) : (
+            <>
+              <Skeleton w='100%' h={300} />
+              <Skeleton w='100%' h={300} />
+              <Skeleton w='100%' h={300} />
+            </>
+          )}
         </SimpleGrid>
       )}
       <Pagination

@@ -17,6 +17,7 @@ import { BsWordpress } from "react-icons/bs";
 import { GrGatsbyjs, GrReactjs } from "react-icons/gr";
 import { LogoIcon, MuvIcon } from "@components/brand";
 import { ProjectsContext } from "./projectContext";
+import { SiNextdotjs } from "react-icons/si";
 
 export function ProjectFilters() {
   const { setFilter, filter } = useContext(ProjectsContext);
@@ -55,6 +56,11 @@ export function ProjectFilters() {
       name: "HTML5",
       icon: AiFillHtml5,
       filter: "html",
+    },
+    {
+      name: "Next.js",
+      icon: SiNextdotjs,
+      filter: "next",
     },
   ];
 

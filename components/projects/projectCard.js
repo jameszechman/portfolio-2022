@@ -1,14 +1,13 @@
 import { Box, Flex, Heading, Image, Tooltip, VStack } from "@chakra-ui/react";
-import React, { useState } from "react";
+import { LogoIcon, MuvIcon } from "@components/brand";
+import { motion } from "framer-motion";
+import { useState } from "react";
 import { AiFillHtml5 } from "react-icons/ai";
 import { BsWordpress } from "react-icons/bs";
 import { GrGatsbyjs, GrReactjs } from "react-icons/gr";
-import { LogoIcon, MuvIcon } from "@components/brand";
-import { motion } from "framer-motion";
-import { useRouter } from "next/router";
+import { SiNextdotjs } from "react-icons/si";
 
 export function ProjectCard(props) {
-  const router = useRouter();
   const [hover, setHover] = useState(false);
 
   const brand = (tags) => {
@@ -23,7 +22,7 @@ export function ProjectCard(props) {
     }
     if (tags.some((item) => item.name === "muv")) {
       return (
-        <Tooltip hasArrow label='Project developed for müv' fontSize='md'>
+        <Tooltip hasArrow label='Project developed with müv' fontSize='md'>
           <Box as='span'>
             <MuvIcon color='white' />
           </Box>
@@ -64,6 +63,15 @@ export function ProjectCard(props) {
         <Tooltip hasArrow label='HTML5' fontSize='md'>
           <Box as='span'>
             <AiFillHtml5 />
+          </Box>
+        </Tooltip>
+      );
+    }
+    if (tags.some((item) => item.name === "next")) {
+      return (
+        <Tooltip hasArrow label='Next.js' fontSize='md'>
+          <Box as='span'>
+            <SiNextdotjs />
           </Box>
         </Tooltip>
       );

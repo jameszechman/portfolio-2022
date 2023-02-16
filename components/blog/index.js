@@ -27,7 +27,7 @@ export function Blog(props) {
       </SimpleGrid>
       {router.asPath === "/" && (
         <Flex justifyContent={"flex-end"}>
-          <Button as={Link} href='/blog' colorScheme={"brand"}>
+          <Button as={Link} href='/tag/blog' colorScheme={"brand"}>
             See More
           </Button>
         </Flex>
