@@ -33,12 +33,12 @@ export async function getStaticProps(context) {
       headers,
     }
   ).then((res) => res.json());
-  const rSkills = await fetch(
-    `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Skills?view=Grid%20view`,
-    {
-      headers,
-    }
-  ).then((res) => res.json());
+  // const rSkills = await fetch(
+  //   `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Skills?view=Grid%20view`,
+  //   {
+  //     headers,
+  //   }
+  // ).then((res) => res.json());
   const rAwards = await fetch(
     `https://api.airtable.com/v0/${process.env.AIRTABLE_BASE_ID}/Awards?view=Grid%20view`,
     {
@@ -47,7 +47,7 @@ export async function getStaticProps(context) {
   ).then((res) => res.json());
 
   const resume = {
-    skills: rSkills.records,
+    // skills: rSkills.records,
     awards: rAwards.records,
     education: rEducation.records,
     employers: rEmployers.records,
