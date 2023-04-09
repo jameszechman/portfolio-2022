@@ -68,8 +68,10 @@ export function Resume(props) {
     padding: 5,
   };
 
+  const { education, employers, skills, awards, ...rest } = props;
+
   return (
-    <Box as='section' aria-label="James Zechman's Resume" {...props}>
+    <Box as='section' aria-label="James Zechman's Resume" {...rest}>
       <Heading as='h2' id='#blog'>
         Resume
       </Heading>
@@ -78,7 +80,7 @@ export function Resume(props) {
         <GridItem colSpan={2} rowSpan={3} {...defaultBoxProps}>
           <Heading as='h3'>Education</Heading>
           <Divider mb={5} />
-          {props.education.map((school) => (
+          {education.map((school) => (
             <Box
               key={school.id}
               id={school.fields["Name"].replaceAll(" ", "")}
@@ -148,7 +150,7 @@ export function Resume(props) {
             </Box>
           ))}
         </GridItem>
-        {props.employers.map((employer) => (
+        {employers.map((employer) => (
           <GridItem
             {...jobBreakpointColumn}
             {...defaultBoxProps}
