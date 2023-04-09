@@ -48,9 +48,9 @@ export async function getStaticProps(context) {
 
   const resume = {
     // skills: rSkills.records,
-    awards: rAwards.records,
-    education: rEducation.records,
-    employers: rEmployers.records,
+    awards: rAwards?.records,
+    education: rEducation?.records,
+    employers: rEmployers?.records,
   };
 
   const posts = await api.posts.browse({

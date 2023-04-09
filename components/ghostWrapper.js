@@ -133,22 +133,16 @@ export function GhostWrapper(props) {
                 switch (tag) {
                   case "h1":
                     return "2xl";
-                    break;
                   case "h2":
                     return "1xl";
-                    break;
                   case "h3":
                     return "xl";
-                    break;
                   case "h4":
                     return "lg";
-                    break;
                   case "h5":
                     return "md";
-                    break;
                   case "h6":
                     return "sm";
-                    break;
                   default:
                     return "sm";
                 }

@@ -1,13 +1,8 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 import { Button, ButtonGroup } from "@chakra-ui/react";
-import Link from "next/link";
-import { useRouter } from "next/router";
 
 const Pagination = ({ pageContext, page, setPage }) => {
-  const router = useRouter();
-
   return (
     <ButtonGroup
       variant='outline'
